@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdul Waashim Portfolio</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #ffffff;
+            --text-color: #000000;
+            --accent-teal: #3ddad7;
+            --heading-bold: #000000;
+            --secondary-blue: #135589;
+        }
+        body {
+            margin: 0;
+            font-family: 'Open Sans Condensed', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        /* Hero Section with Background Video */
+        .hero-bg {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .hero-bg video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            object-fit: cover; /* Improved for full coverage */
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        h1, h2 {
+            font-family: 'Open Sans Condensed', sans-serif;
+            color: var(--heading-bold);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+        h1 { font-size: 4em; margin: 0; }
+
+        h2 { font-size: 2.5em; }
+
+        h4 { font-size: 1em; font-weight: bold; text-transform: uppercase;}
+
+        p { font-size: 1.1em; line-height: 1.8; }
+
+        section {
+            padding: 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        /* Services Section */
+        .service-block h3 {
+            font-size: 1.5em;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--heading-bold);
+        }
+        .service-block img {
+            display: block;
+            margin: 0 auto 20px auto;
+            width: 70%;
+            max-width: 760px;
+            height: auto;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+        .service-block img:hover { transform: scale(1.05); }
+        .service-block video {
+            width: 90%;
+            height: auto;
+            border-radius: 0;
+            margin: 0 auto 0px auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            align-items: start;
+            grid-auto-flow: dense;
+        }
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr); /* Mobile-friendly */
+            }
+        }
+        /* Service Card Styling */
+        .service-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            background: #f9f9f9;
+            padding: 0;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .service-card img, .service-card video {
+            width: 100%;
+            height: auto;
+            border-radius: 0;
+            display: block;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            object-fit: contain;
+            aspect-ratio: 16 / 9; /* For videos */
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 60%);
+            transform: skewX(-25deg);
+            transition: left 0.7s ease;
+        }
+        .service-card:hover::before { left: 125%; }
+        .service-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 18px rgba(18, 86, 95, 0.5);
+        }
+        /* FQ Section
+        .fq-section {
+            text-align: left;
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 10px;
+        }
+        .fq-section h2 { font-size: 20px; font-weight: bold; margin-bottom: 8px; }
+        .fq-section p { font-size: 16px; color: #333; margin-bottom: 12px; }*/
+
+        /* FAQ */
+        .fq-section {
+            text-align: left;
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .fq-section h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .fq-section p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        /* Service_gd Grid */
+        .service_gd-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+            gap: 8px; /* Reduce space between images */
+            justify-items: center; /* Center images horizontally */
+        }
+
+        .service_gd-card {
+            width: 95%; /* Make image slightly bigger inside its grid cell */
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service_gd-card img {
+            width: 100%; /* Fill the card */
+            height: 100%; /* Keep ratio controlled */
+            object-fit: cover; /* Crop without distortion */
+            border-radius: 4px; /* Optional: rounded corners */
+        }
+
+        /*New Servigd */
+        .servigd-grid {
+            /*display: block;
+            width: 100%;
+            grid-template-columns: repeat(4, 1fr);*/
+            column-count: 4;
+            align-items: start;
+            grid-auto-flow: dense;
+        }
+        /* Service Card Styling */
+        .servigd-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            display: block;
+            break-inside: avoid;
+        }
+        .servigd-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 0;
+            display: block;
+            transition: transform 0.3s ease;
+            cursor: pointer
+        }
+        .servigd-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 60%);
+            transform: skewX(-25deg);
+            transition: left 0.7s ease;
+        }
+        .servigd-card:hover::before { left: 125%; }
+        .servigd-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 18px rgba(18, 86, 95, 0.5);
+        }
+
+        /* Project Showcase */
+        .project-showcase { margin-top: 20px; }
+        .project-item {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 2px solid var(--accent-teal);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-item img {
+            display: block;
+            width: 100%;
+            max-width: 920px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+        .project-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 18px rgba(61, 218, 215, 0.5);
+        }
+        /* Contact Section */
+        #contact {
+            background: url('https://via.placeholder.com/1920x1080?text=Contact+Background') no-repeat center center/cover;
+            text-align: center;
+            color: #fff;
+            padding: 80px 10px;
+            position: relative;
+        }
+        #contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        #contact h2, #contact p, #contact a { position: relative; z-index: 1; }
+        #contact a {
+            color: var(--accent-teal);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        #contact a:hover { color: var(--secondary-blue); }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            width: 90%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            max-width: 1200px;
+            max-height: 90vh;
+            background: #000;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .close:hover { transform: rotate(90deg); }
+    </style>
+</head>
+<body>
+    <!-- Hero Section with Background Video -->
+    <div class="hero-bg">
+        <video autoplay muted loop>
+            <source src="Clips/showreel01.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        <div class="hero-content">
+            <h1>Abdul Waashim</h1>
+            <p>A passionate video editor & Graphics Designer for films and freelance projects.</p>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="bio" class="reveal">
+        <h2>About Me</h2>
+        <p>Hello, I'm Abdul Waashim, a skilled video editor & Graphics Designer with experience in creating captivating visual stories for films, commercials, and social media.</p>
+        <br>
+        <br>
+        <h2>“Bringing Stories to Life, Frame by Frame”</h2>
+    </section>
+
+    <!-- Services Section (Consolidated) -->
+    <section id="services" class="reveal">
+        <h2 style="color: rgb(171, 170, 173);">My Services</h2>
+        <div class="service-block">
+            <h3>Video Editing</h3>
+            <img src="imgs/ve01.png" alt="Professional video editing example">
+            <h4>Professional cuts, trimming, transitions, and seamless storytelling for your videos.</h4>
+            <br>
+            <br>
+            <h2>“Specialized in editing short films and branded content, ensuring every frame speaks with impact and emotion”</h2>
+            <br>
+            
+        </div>
+        <div class="service-block">
+            <h3>Color Grading</h3>
+            <video autoplay muted loop>
+                <source src="Clips/ba01.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <h4>Enhancing mood and tone with professional color grading and cinematic looks.</h4>
+            <br>
+            <br>
+            <h2>“Designing Motion That Moves People”</h2>
+        </div>
+        <div class="service-block">
+            <h3>Motion Graphics</h3>
+            <div class="services-grid">
+                <!-- Motion Graphics Videos -->
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/port_mgd01.mp4">
+                        <source src="Clips/port_mgd01.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/Port_mgd06.mp4">
+                        <source src="Clips/Port_mgd06.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/port_mgd04.mp4">
+                        <source src="Clips/port_mgd04.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/port_mgd03.mp4">
+                        <source src="Clips/port_mgd03.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/Port_mgd02.mp4">
+                        <source src="Clips/port_mgd02.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/Port_mgd05.mp4">
+                        <source src="Clips/port_mgd05.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/Port_mgd07.mp4">
+                        <source src="Clips/port_mgd07.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <!-- Add other motion graphics cards similarly -->
+                <!-- ... (truncated for brevity; add the rest as in your original) -->
+            </div>
+            <h4>Dynamic animations, intros, and explainer graphics for engaging content.</h4>
+            <h3 style="text-align: left;">Recent Projects - "Comic Style Visuals"</h3>
+            <div class="services-grid">
+                <!-- Comic Style Videos -->
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/comc_01.mp4">
+                        <source src="Clips/comc_01.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/comc_02.mp4">
+                        <source src="Clips/comc_02.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/comc_03.mp4">
+                        <source src="Clips/comc_03.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/comc_04.mp4">
+                        <source src="Clips/comc_04.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="service-card">
+                    <video autoplay muted loop data-video="Clips/comc_05.mp4">
+                        <source src="Clips/comc_05.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <!-- ... (add the rest) -->
+            </div>
+            <br>
+            <h2>“Turning Brands into Stories and Stories into Art”</h2>
+        </div>
+        <div class="service-block">
+            <h3>Graphic Design</h3>
+            <div class="servigd-grid">
+                <div class="servigd-card">
+                    <img src="imgs/gd_img01.jpeg" alt="Graphic design example 1" data-img="imgs/gd_img01.jpeg">
+                </div>
+                <div class="servigd-card">
+                    <img src="imgs/gd_img02.jpeg" alt="Graphic design example 2" data-img="imgs/gd_img02.jpeg">
+                </div>
+                <div class="servigd-card">
+                    <img src="imgs/gd_img03.png" alt="Graphic design example 3" data-img="imgs/gd_img03.png">
+                </div>
+                <div class="servigd-card">
+                    <img src="imgs/gd_img04.jpeg" alt="Graphic design example 4" data-img="imgs/gd_img04.jpeg">
+                </div>
+                <div class="servigd-card">
+                    <img src="imgs/gd_img05.jpeg" alt="Graphic design example 5" data-img="imgs/gd_img05.jpeg">
+                </div>
+                <div class="servigd-card">
+                    <img src="imgs/gd_img06.jpg" alt="Graphic design example 6" data-img="imgs/gd_img06.jpg">
+                </div>
+                <!-- Add other graphic design cards similarly -->
+                <!-- ... -->
+            </div>
+            <h4>Poster making, logo design, branding, photo correction, and social media creatives.</h4>
+            <br>
+        </div>
+    </section>
+
+    <!-- Project Showcase -->
+    <section id="projects" class="reveal">
+        <h2>Project Showcase</h2>
+        <p>Click to view my latest showreel.</p>
+        <div class="project-showcase">
+            <div class="project-item" onclick="window.open('https://youtu.be/qyeBHTpi4YU', '_blank')">
+                <img src="imgs/showreel_img01.png" alt="Showreel thumbnail">
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <div class="fq-section">
+        <h2>Frequently Asked Questions</h2>
+        <p><strong>Q:</strong> What software do you use for video editing?</p>
+        <p><strong>A:</strong> I primarily use Adobe Premiere Pro and After Effects for video editing and motion graphics.</p>
+        <p><strong>Q:</strong> Can you work with different video formats?</p>
+        <p><strong>A:</strong> Yes, I can work with various video formats, including MP4, MOV, AVI, and more.</p>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="reveal">
+        <h2>Contact</h2>
+        <p>Reach out for collaborations or inquiries.</p>
+        <a href="mailto:abdulwaashimid@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/Abdul-waashim" target="_blank">LinkedIn</a>
+        <a href="https://github.com/Abdulwaashim" target="_blank">GitHub</a>
+        <a href="https://youtu.be/qyeBHTpi4YU" target="_blank">Showreels</a>
+    </section>
+    <!-- Modal -->
+<div id="modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <iframe class="modal-content" src="" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<script>
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    window.addEventListener('scroll', () => {
+        reveals.forEach(reveal => {
+            const windowHeight = window.innerHeight;
+            const revealTop = reveal.getBoundingClientRect().top;
+            if (revealTop < windowHeight - 100) {
+                reveal.classList.add('active');
+            }
+        });
+    });
+
+    // Modal functions
+    function openModal(url) {
+        document.getElementById('modal').style.display = 'flex';
+        document.querySelector('.modal-content').src = url;
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+        document.querySelector('.modal-content').src = '';
+    }
+
+    // Handle Service Image Click
+    document.querySelectorAll('.service-card img').forEach(img => {
+        img.addEventListener('click', () => {
+            const videoSrc = img.getAttribute('data-video');
+            const modal = document.getElementById('modal');
+            const iframe = document.querySelector('.modal-content');
+            modal.style.display = 'flex';
+            iframe.src = videoSrc + '?autoplay=1';
+        });
+    });
+
+    // Handle Service Video Click
+    document.querySelectorAll('.service-card video').forEach(video => {
+        video.addEventListener('click', () => {
+            const videoSrc = video.getAttribute('data-video');
+            if (videoSrc) {
+                const modal = document.getElementById('modal');
+                const iframe = document.querySelector('.modal-content');
+                modal.style.display = 'flex';
+                iframe.src = videoSrc + '?autoplay=1';
+            }
+        });
+    });
+</script>
+</body>
+</html>
